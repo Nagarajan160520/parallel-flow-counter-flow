@@ -163,6 +163,15 @@ const App = () => {
     }
   };
 
+  // Get image source based on flow type
+  const getImageSrc = () => {
+    if (flowType === 'parallel') {
+      return '/images/heat-exchanger-diagram.png';
+    } else {
+      return '/images/counter-flow-he.jpeg'
+    }
+  };
+
   return (
     <div className="app">
       {/* Header */}
@@ -198,15 +207,15 @@ const App = () => {
       <div className="diagram-section">
         <div className="diagram-container">
           <img
-            src="/images/heat-exchanger-diagram.png"
-            alt="Concentric Tube Heat Exchanger Diagram"
+            src={getImageSrc()}
+            alt={`${flowType === 'parallel' ? 'Parallel' : 'Counter'} Flow Heat Exchanger Diagram`}
             className="exchanger-diagram"
             onError={(e) => {
-              e.target.src = "https://via.placeholder.com/1200x650/1a1a2e/ffffff?text=Heat+Exchanger+Diagram";
+              e.target.src = `https://via.placeholder.com/1200x650/1a1a2e/ffffff?text=${flowType === 'parallel' ? 'Parallel' : 'Counter'}+Flow+Heat+Exchanger`;
             }}
           />
           
-          {/* Animated Arrows Overlay */}
+          {/* Animated Arrows Overlay - BLUE ARROWS moved DOWN in both modes */}
           <svg className="animated-arrows-overlay" viewBox="0 0 1200 650" preserveAspectRatio="none">
             <defs>
               <marker id="arrowRedSmall" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
@@ -219,21 +228,21 @@ const App = () => {
 
             {flowType === 'parallel' ? (
               <>
-                {/* PARALLEL FLOW - Both arrows left to right */}
+                {/* PARALLEL FLOW - BLUE ARROWS moved DOWN to y=215 (was 194) */}
                 {isAnimating && (
                   <>
-                    {/* Hot water (Blue) left to right */}
+                    {/* Hot water (Blue) left to right - MOVED DOWN */}
                     <g className="arrow-animate right delay-1">
-                      <line x1="220" y1="194" x2="400" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                      <line x1="220" y1="215" x2="400" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
                     <g className="arrow-animate right delay-2">
-                      <line x1="440" y1="194" x2="620" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                      <line x1="440" y1="215" x2="620" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
                     <g className="arrow-animate right delay-3">
-                      <line x1="660" y1="194" x2="840" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                      <line x1="660" y1="215" x2="840" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
                     
-                    {/* Cold water (Red) left to right */}
+                    {/* Cold water (Red) left to right - NO CHANGE (y=266) */}
                     <g className="arrow-animate right delay-2">
                       <line x1="220" y1="266" x2="400" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
                     </g>
@@ -248,29 +257,29 @@ const App = () => {
               </>
             ) : (
               <>
-                {/* COUNTER FLOW - BOTH arrows move from RIGHT to LEFT */}
+                {/* COUNTER FLOW - BLUE ARROWS moved DOWN to y=215 (was 194) */}
                 {isAnimating && (
                   <>
-                    {/* Hot water (BLUE) - RIGHT to LEFT */}
-                    <g className="arrow-animate right">
-                      <line x1="840" y1="194" x2="660" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                    {/* Hot water (BLUE) - RIGHT to LEFT - MOVED DOWN */}
+                    <g className="arrow-animate left">
+                      <line x1="840" y1="215" x2="660" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
-                    <g className="arrow-animate right delay-1">
-                      <line x1="620" y1="194" x2="440" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                    <g className="arrow-animate left delay-1">
+                      <line x1="620" y1="215" x2="440" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
-                    <g className="arrow-animate right delay-2">
-                      <line x1="400" y1="194" x2="220" y2="194" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
+                    <g className="arrow-animate left delay-2">
+                      <line x1="400" y1="215" x2="220" y2="215" stroke="#3b82f6" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowBlueSmall)"/>
                     </g>
                     
-                    {/* Cold water (RED) - RIGHT to LEFT */}
+                    {/* Cold water (RED) - LEFT to RIGHT - NO CHANGE (y=266) */}
                     <g className="arrow-animate right delay-1">
-                      <line x1="840" y1="266" x2="660" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
+                      <line x1="220" y1="266" x2="400" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
                     </g>
                     <g className="arrow-animate right delay-2">
-                      <line x1="620" y1="266" x2="440" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
+                      <line x1="440" y1="266" x2="620" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
                     </g>
                     <g className="arrow-animate right delay-3">
-                      <line x1="400" y1="266" x2="220" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
+                      <line x1="660" y1="266" x2="840" y2="266" stroke="#ef4444" strokeWidth="3.5" strokeLinecap="round" markerEnd="url(#arrowRedSmall)"/>
                     </g>
                   </>
                 )}
