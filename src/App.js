@@ -172,7 +172,7 @@ const App = () => {
     }
   };
 
-  return (
+  return ( 
     <div className="app">
       {/* Header */}
       <header className="header">
